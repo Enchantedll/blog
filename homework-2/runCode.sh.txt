@@ -1,0 +1,32 @@
+#!/bin/bash
+# @filename runCpp.sh
+# @author jinyu
+# @date 2020-10-12
+# @descripte c++ compile shell
+
+endOfCpp=".cpp"
+msgForCpp="This is a cpp file easy run shell for Unix-like system"
+msgTips="If cpp filename is helloworld.cpp,the shell should be use like:\n-------------\n./runCpp.sh helloworld.cpp\n-------------"
+
+if [[ $1 == *$endOfCpp* ]]
+then
+    fileName=$(basename $1 $endOfCpp)
+    start=$(date +%s)
+    g++ -o $fileName.runCppout $fileName.cpp
+    end=$(date +%s) 
+
+    timeCompile=$(( end - start ))
+
+    start=$(date +%s)
+    ./$fileName.runCppout
+    end=$(date +%s) 
+
+    timeRun=$((  end - start ))
+
+    rm $fileName.runCppout
+    echo ------------
+    echo  Compile \time: $timeCompile s, \Run \time: $timeRun
+else
+    echo $msgForCpp
+    echo -e $msgTips
+fi
